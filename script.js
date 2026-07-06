@@ -43,3 +43,15 @@ removeLastMovie.onclick = () => {
   movieArr.pop();
 };
 updateDisplay();
+
+const randomMovie = document.getElementById("randomMovie");
+const randomPick = document.getElementById("randomResult");
+
+randomMovie.onclick = () => {
+  if (movieArr.length === 0) {
+    return (display.textContent = "Playlist is empty");
+  }
+  let pickRandom = Math.floor(Math.random() * movieArr.length);
+  console.log(randomPick);
+  randomPick.textContent = movieArr[pickRandom];
+};
