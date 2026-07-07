@@ -34,13 +34,13 @@ function updateDisplay() {
 }
 
 removeFirstMovie.onclick = () => {
-  updateDisplay();
   movieArr.shift();
+  updateDisplay();
 };
 
 removeLastMovie.onclick = () => {
-  updateDisplay();
   movieArr.pop();
+  updateDisplay();
 };
 updateDisplay();
 
@@ -54,4 +54,28 @@ randomMovie.onclick = () => {
   let pickRandom = Math.floor(Math.random() * movieArr.length);
   console.log(randomPick);
   randomPick.textContent = movieArr[pickRandom];
+};
+
+const clear = document.getElementById("clear");
+
+clear.onclick = () => {
+  movieArr.length = 0;
+  updateDisplay();
+};
+
+const searchBar = document.getElementById("searchBar");
+const searchBtn = document.getElementById("searchBtn");
+const searchResult = document.getElementById("searchResult");
+const fieldset = document.getElementById("fieldset");
+
+searchBtn.onclick = () => {
+  let searchRes = movieArr.includes(searchBar.value);
+  if (searchBar.value === "") {
+    return;
+  } else if (searchRes === true) {
+    searchResult.textContent = `Found: ${searchBar.value}`;
+    fieldset.style.display = "block";
+  } else if (searchRes === false) {
+    searchResult.textContent = `Not found: ${searchBar.value}`;
+  }
 };

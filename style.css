@@ -10,3 +10,7 @@ html {
   /* font-family: "Space Mono", monospace; */
   font-family: "Roboto", sans-serif;
 }
+
+fieldset {
+  display: none;
+}
