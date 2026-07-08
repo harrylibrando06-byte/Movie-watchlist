@@ -27,15 +27,17 @@ addToStart.onclick = () => {
 
 function updateDisplay() {
   if (movieArr.length === 0) {
-    display.textContent = "Playlist is empty, wanna add some?";
+    return (display.textContent = "Playlist is empty, wanna add some?");
   }
 
   let html = "";
 
   for (let i = 0; i < movieArr.length; i++) {
-    html += `<div class="movie"> ${movieArr[i]}</div> `;
-    display.innerHTML = html;
+    html += `<div class="movie"><input type="checkbox">${movieArr[i]}</div> `;
   }
+
+  display.innerHTML = html;
+  return;
 }
 
 removeFirstMovie.onclick = () => {
@@ -58,8 +60,7 @@ randomMovie.onclick = () => {
     return (display.textContent = "Playlist is empty");
   }
   let pickRandom = Math.floor(Math.random() * movieArr.length);
-  console.log(randomPick);
-  randomPick.textContent = movieArr[pickRandom];
+  randomPick.innerHTML = `<div class="movie" > ${movieArr[pickRandom]} </div>`;
 };
 
 const clear = document.getElementById("clear");
