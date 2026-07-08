@@ -12,7 +12,7 @@ addToEnd.onclick = () => {
     return;
   }
   movieArr.push(movieInput.value);
-  display.textContent = movieArr.join(", ");
+  updateDisplay();
   movieInput.value = "";
 };
 
@@ -21,15 +21,20 @@ addToStart.onclick = () => {
     return;
   }
   movieArr.unshift(movieInput.value);
-  display.textContent = movieArr.join(", ");
+  updateDisplay();
   movieInput.value = "";
 };
 
 function updateDisplay() {
   if (movieArr.length === 0) {
     display.textContent = "Playlist is empty, wanna add some?";
-  } else {
-    display.textContent = movieArr.join(", ");
+  }
+
+  let html = "";
+
+  for (let i = 0; i < movieArr.length; i++) {
+    html += `<div class="movie"> ${movieArr[i]}</div> `;
+    display.innerHTML = html;
   }
 }
 
@@ -42,6 +47,7 @@ removeLastMovie.onclick = () => {
   movieArr.pop();
   updateDisplay();
 };
+
 updateDisplay();
 
 const randomMovie = document.getElementById("randomMovie");
@@ -73,7 +79,7 @@ searchBtn.onclick = () => {
   if (searchBar.value === "") {
     return;
   } else if (searchRes === true) {
-    searchResult.textContent = `Found: ${searchBar.value}`;
+    searchResult.innerHTML = `Found: <div class ="movie">${searchBar.value}</div>`;
     fieldset.style.display = "block";
   } else if (searchRes === false) {
     searchResult.textContent = `Not found: ${searchBar.value}`;
