@@ -86,3 +86,35 @@ searchBtn.onclick = () => {
     searchResult.textContent = `Not found: ${searchBar.value}`;
   }
 };
+
+/* ======================== bilog na favicon ==================*/
+
+window.addEventListener("DOMContentLoaded", () => {
+  const img = new Image();
+  img.src = "bg.jpg"; // Loads your existing image
+
+  img.onload = () => {
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+
+    // Set target dimensions for the browser tab
+    canvas.width = 32;
+    canvas.height = 32;
+
+    // Create a perfect circular mask
+    ctx.beginPath();
+    ctx.arc(16, 16, 16, 0, Math.PI * 2);
+    ctx.closePath();
+    ctx.clip();
+
+    // Draw your bg.jpg inside the circular mask
+    ctx.drawImage(img, 0, 0, 32, 32);
+
+    // Create and inject the new favicon link tag into the header
+    const link = document.createElement("link");
+    link.rel = "icon";
+    link.type = "image/png"; // Saves the output with transparency
+    link.href = canvas.toDataURL("image/png");
+    document.head.appendChild(link);
+  };
+});
