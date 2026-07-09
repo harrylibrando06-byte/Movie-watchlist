@@ -79,11 +79,15 @@ searchBtn.onclick = () => {
   let searchRes = movieArr.includes(searchBar.value);
   if (searchBar.value === "") {
     return;
+  } else if (searchRes === true && movieArr.length === 0) {
+    searchResult.innerHTML = `To-do list is empty`;
+    fieldset.style.display = "flex";
   } else if (searchRes === true) {
     searchResult.innerHTML = `Found: <div class ="movie">${searchBar.value}</div>`;
     fieldset.style.display = "block";
   } else if (searchRes === false) {
-    searchResult.textContent = `Not found: ${searchBar.value}`;
+    searchResult.innerHTML = `Not found: ${searchBar.value}`;
+    fieldset.style.display = "flex";
   }
 };
 
