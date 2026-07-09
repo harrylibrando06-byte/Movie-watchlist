@@ -60,7 +60,7 @@ randomMovie.onclick = () => {
     return (display.textContent = "Playlist is empty");
   }
   let pickRandom = Math.floor(Math.random() * movieArr.length);
-  randomPick.innerHTML = `<div class="movie" > ${movieArr[pickRandom]} </div>`;
+  randomPick.innerHTML = `<div class="movie" >Random picked: ${movieArr[pickRandom]} </div>`;
 };
 
 const clear = document.getElementById("clear");

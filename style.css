@@ -1,43 +1,86 @@
 @import url("https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap");
 
 :root {
-  --bg: #f8f8fb;
-  --surface: #ffffff;
-  --surface-light: #f3f3f7;
-  --text: #222222;
-  --text-secondary: #666666;
+  /* Lightest areas of the texture (clouds/highlights) */
+  --bg: #dce7f2;
 
-  /* Punchy Pink */
-  --accent: #f55d71;
-  --accent-hover: #ff4f9e;
-  --border: #dddddd;
+  /* Mid-tone blue for solid surfaces */
+  --surface: #c0d3e6;
+
+  /* Lighter surface for cards/inputs to stand out slightly */
+  --surface-light: #eaf2f9;
+
+  /* Darkest navy from the deep shadows (use for maximum readability) */
+  --text: #1a3045;
+
+  /* Muted blue-grey for secondary text */
+  --text-secondary: #59758f;
+
+  /* The rich deep-blue from the darkest parts of the image */
+  --accent: #3a698b;
+
+  /* A slightly darker version for hover states */
+  --accent-hover: #2c5270;
+
+  /* A slightly darker shade of the bg for subtle outlines */
+  --border: #aec4d9;
 }
 
-/* * {
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-} */
+}
 
 /* ================= DISPLAY ================= */
 
 h1 {
   font-family: "Bebas Neue", sans-serif;
-}
-
-#container {
-  background-color: var(--surface);
-  flex-shrink: 1;
+  color: var(--text);
 }
 
 body {
-  background-color: var(--bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url(bg.jpg);
+  background-color: rgba(255, 255, 255, 0.3);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+  flex-shrink: 1;
+  /* align-items: center; */
+  height: auto; /* overrides height: 100% */
+  max-height: 85vh; /* prevents it from going off screen */
+  width: 100%;
+  max-width: 700px;
+  margin-top: 3rem;
+
+  /* CHANGED: Lowered from 0.3 to 0.15 (Much more see-through) */
+  background: rgba(255, 255, 255, 0.15);
+
+  /* CHANGED: Increased blur from 10px to 14px (Keeps text readable despite more transparency) */
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border: 1px solid rgba(255, 255, 255, 0.25); /* Slightly more visible border to define edges */
+  border-radius: 16px;
+  padding: 24px;
+
+  /* CHANGED: Shadow is slightly darker to compensate for the lighter card */
+  box-shadow: 0 8px 32px rgba(26, 48, 69, 0.15);
 }
 
 #displayArea {
-  min-height: 200px;
+  min-height: 250px;
   max-height: 400px;
-  height: 250px;
   padding: 20px;
 
   display: flex;
@@ -56,7 +99,13 @@ body {
 .movie {
   padding: 14px 18px;
 
-  background: var(--surface-light);
+  /* CHANGE THIS: Makes the background 40% transparent white */
+  background: rgba(255, 255, 255, 0.4);
+
+  /* ADD THIS: Blurs the texture behind the card */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
   color: var(--text);
 
   border-left: 5px solid var(--accent);
@@ -68,8 +117,11 @@ body {
 }
 
 .movie:hover {
-  transform: translateX(10px);
-  background: #ffe7f2;
+  transform: translateX(6px);
+  box-shadow: 0 12px 32px rgba(26, 48, 69, 0.18);
+
+  /* OPTIONAL: Slightly less transparent on hover for a cleaner look */
+  background: rgba(255, 255, 255, 0.6);
 }
 
 fieldset {
@@ -82,7 +134,8 @@ input[type="checkbox"] {
 
 #header {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
+
   align-items: center;
 }
 
@@ -91,5 +144,159 @@ input[type="checkbox"] {
   justify-content: center;
   align-items: center;
   height: 100px;
-  flex-wrap: 1;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ================= BUTTONS ================= */
+
+button {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* ================= INPUTS ================= */
+
+input[type="text"],
+input[type="number"] {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  padding: 8px 14px;
+  color: var(--text);
+  font-size: 0.85rem;
+  outline: none;
+  transition: border 0.2s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+  border-color: var(--accent);
+}
+
+input::placeholder {
+  color: var(--text-secondary);
+}
+
+/* ================= SEARCH BAR ================= */
+
+#searchBar {
+  width: 180px;
+}
+
+#searchBtn {
+  background: transparent;
+  border: none;
+  padding: 6px;
+  margin-left: 4px;
+}
+
+#searchBtn:hover {
+  background: rgba(58, 105, 139, 0.2);
+  transform: none;
+}
+
+#searchBtn svg {
+  fill: var(--text);
+  transition: fill 0.2s ease;
+}
+
+#searchBtn:hover svg {
+  fill: var(--accent);
+}
+
+/* ================= FIELDSET / SEARCH RESULT ================= */
+
+#fieldset {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-top: 12px;
+  /* background: rgba(255, 255, 255, 0.3); */
+  backdrop-filter: blur(6px);
+}
+
+#fieldset legend {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+#searchResult {
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* ================= RANDOM RESULT ================= */
+
+#randomResult {
+  margin-top: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  text-align: center;
+  min-height: 24px;
+}
+
+/* ================= SCROLLBAR ================= */
+
+#displayArea::-webkit-scrollbar {
+  width: 6px;
+}
+
+#displayArea::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+#displayArea::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 10px;
+  opacity: 0.6;
+}
+
+#container::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-hover);
+}
+
+#container::-webkit-scrollbar {
+  width: 6px;
+}
+
+#container::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+#container::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 10px;
+  opacity: 0.6;
+}
+
+#container::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-hover);
 }
